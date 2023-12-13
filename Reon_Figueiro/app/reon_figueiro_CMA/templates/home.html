@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Reon | Home {% endblock %}
+
+{% block content %}
+<div style="margin-left: 100px;">
+<h1 style="text-align: center; color: black">Contact Management</h1>
+<div style="display: flex; justify-content: left;">
+    <a href="{% url 'addContact' %}" type="button" style="color: white; text-decoration: none; background-color:rgb(9, 3, 72);" class="btn m-2 p-2">Create a New Contact</a>
+</div>
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+{% endif %}
+<div style="display: flex; justify-content: center; background-color:rgb(160, 189, 244);">
+    <table class="table m-3" style="text-align: center;">
+        <thead>
+          <tr>
+            <th scope="col" colspan="2" style="text-align: center;background-color:rgb(160, 189, 244); color:rgb(9, 3, 72);">Actions</th>
+            <th scope="col" style="text-align: center; background-color:rgb(160, 189, 244); color:rgb(9, 3, 72);">Contact Name</th>
+            <th scope="col" style="text-align: center; background-color:rgb(160, 189, 244); color:rgb(9, 3, 72);">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if all_contacts %}
+            {% for contact in all_contacts %}
+              <tr>
+                <th scope="row" style="text-align: center;  background-color:rgb(160, 189, 244); color:rgb(9, 3, 72);"><a href="{% url 'update' contact.id %}"><i class="fa-solid fa-user-pen btn"></i></a></th>
+                <th scope="row" style="text-align: center;  background-color:rgb(160, 189, 244); color:rgb(9, 3, 72);"><a href="{% url 'deleteConf' contact.id %}"><i class="fa-solid fa-trash btn"></i></a></th>
+                <td style="text-align: center;  background-color:rgb(160, 189, 244); color:rgb(9, 3, 72);"><a href="{% url 'details' contact.id %}" style="text-decoration: none; color:rgb(9, 3, 72);">{{contact.contact_name}}</a></td>
+                <td style="text-align: center;  background-color:rgb(160, 189, 244); color:rgb(9, 3, 72);">{{contact.contact_email}}</td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+</div>
+</div>
+{% endblock %}
